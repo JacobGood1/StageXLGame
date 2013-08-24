@@ -1,8 +1,8 @@
 part of main;
 
-Sprite line;
-Sprite lNorm;
-Sprite rNorm;
+Sprite line  = new Sprite(),
+       lNorm = new Sprite(),
+       rNorm = new Sprite();
 
 class Vector extends Shape implements Animatable
 {
@@ -16,7 +16,6 @@ class Vector extends Shape implements Animatable
   Vector([startX = 0, startY = 0, endX = 0, endY = 0, newVx = 0, newVy = 0])
   {
     update(startX, startY, endX, endY, newVx, newVy); 
-    
   }
   
   
@@ -165,46 +164,29 @@ class Vector extends Shape implements Animatable
   
   draw({color: Color.Black, width: 1})
   {
-    for(var i = 0; i < stage.numChildren; i++)
-     {
-       var currentChild = stage.getChildAt(i);
-       if(currentChild == line)
-       {
-         stage.removeChildAt(i);
-       }
-     }
-     line = new Sprite();
-     var shape     = new Shape();
-    
-    shape.graphics
+    graphics
       ..beginPath()
       ..moveTo(a.x, a.y)
       ..lineTo(b.x, b.y)
       ..strokeColor(color, width)
       ..closePath();    
-    line.addChild(shape);
+    line.addChild(this);
+  }
+  
+  init()
+  {
     stage.addChild(line);
+  }
+  
+  initWithNorms()
+  {
+    stage.addChild(line);
+    stage.addChild(lNorm);
+    stage.addChild(rNorm);
   }
   
   drawWithNorms({colorMain: Color.Black, widthMain: 1,leftNormalColor: Color.Red, leftNormalWidth: 1, rightNormalColor: Color.Red, rightNormalWidth: 1})
   {
-    
-     var dec = 0;
-     print(stage.numChildren);
-     if(stage.contains(line))
-     {
-       stage
-        ..removeChild(line)
-        ..removeChild(lNorm)
-        ..removeChild(rNorm);
-     }
-    
-     line = new Sprite();
-     rNorm = new Sprite();
-     lNorm = new Sprite();
-     
-     
-    
     graphics
       ..beginPath()
       ..moveTo(a.x, a.y)
@@ -212,7 +194,7 @@ class Vector extends Shape implements Animatable
       ..strokeColor(colorMain, widthMain)
       ..closePath();    
     line.addChild(this);
-    stage.addChild(line);
+    
     
     graphics
       ..beginPath()
@@ -221,7 +203,7 @@ class Vector extends Shape implements Animatable
       ..strokeColor(leftNormalColor, leftNormalWidth)
       ..closePath();    
     lNorm.addChild(this);
-    stage.addChild(lNorm);
+    
     
     graphics
       ..beginPath()
@@ -230,18 +212,18 @@ class Vector extends Shape implements Animatable
       ..strokeColor(rightNormalColor, rightNormalWidth)
       ..closePath();    
     rNorm.addChild(this);
-    stage.addChild(rNorm);
+    
   }
   
   drawToPlayer(x,y)
   {
-    update(x, y, player.x, player.y);
+    update(x, y, player.center.x, player.center.y);
   }
   
   bool advanceTime(num time)
   {
     graphics.clear();
-    drawToPlayer(100, 100);
+    drawToPlayer(400, 400);
     drawWithNorms();
     return true;
   }

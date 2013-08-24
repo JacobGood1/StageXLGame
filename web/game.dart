@@ -46,7 +46,6 @@ class Level1 extends GameWorld
   {
     gameSurface.onMouseMove.listen((me)
         {
-      print("still recieving");
           mouseX = me.localX;
           mouseY = me.localY;
         });
@@ -65,8 +64,10 @@ class Level1 extends GameWorld
           player = new Player(300,300); 
           
           addChild(player);
-          juggler.add(new Vector());
-          addChild(new Vector());
+          var kek = new Vector();
+          var poo = new Vector();
+          juggler.add(kek);
+          kek.initWithNorms();
         });;
   }
 }
