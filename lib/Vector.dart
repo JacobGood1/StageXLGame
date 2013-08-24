@@ -222,6 +222,7 @@ class Vector extends Shape implements Animatable
   
   bool advanceTime(num time)
   {
+    print("mymom");
     graphics.clear();
     drawToPlayer(400, 400);
     drawWithNorms();
