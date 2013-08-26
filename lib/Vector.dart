@@ -1,10 +1,12 @@
 part of main;
 
-Sprite line  = new Sprite(),
-       lNorm = new Sprite(),
-       rNorm = new Sprite();
+Sprite _line  = new Sprite(),
+       _lNorm = new Sprite(),
+       _rNorm = new Sprite();
 
-class Vector extends Shape implements Animatable
+Shape _shape = new Shape();
+
+class Vector implements Animatable
 {
   var _a = new Point(0,0),
       _b = new Point(0,0),
@@ -13,9 +15,16 @@ class Vector extends Shape implements Animatable
   
   
   
-  Vector([startX = 0, startY = 0, endX = 0, endY = 0, newVx = 0, newVy = 0])
+  Vector({animateIt: true, startX: 0, startY: 0, endX: 0, endY: 0, newVx: 0, newVy: 0})
   {
     update(startX, startY, endX, endY, newVx, newVy); 
+    if(animateIt)
+    {
+      stage.addChild(_line);
+      stage.addChild(_lNorm);
+      stage.addChild(_rNorm);
+      juggler.add(this);
+    }
   }
   
   
@@ -92,7 +101,7 @@ class Vector extends Shape implements Animatable
   
   Vector get leftNormal
   {
-    Vector leftNorm = new Vector();
+    Vector leftNorm = new Vector(animateIt: false);
     if(_vx == 0 && _vy == 0)
     {
       leftNorm.update(a.x, a.y, a.x + this.lx, a.y + this.ly);
@@ -106,7 +115,7 @@ class Vector extends Shape implements Animatable
   
   Vector get rightNormal
   {
-    Vector rightNorm = new Vector();
+    Vector rightNorm = new Vector(animateIt: false);
     if(_vx == 0 && _vy == 0)
     {
       rightNorm.update(a.x, a.y, a.x + this.rx, a.y + this.ry);
@@ -164,54 +173,42 @@ class Vector extends Shape implements Animatable
   
   draw({color: Color.Black, width: 1})
   {
-    graphics
+    _shape.graphics
       ..beginPath()
       ..moveTo(a.x, a.y)
       ..lineTo(b.x, b.y)
       ..strokeColor(color, width)
       ..closePath();    
-    line.addChild(this);
-  }
-  
-  init()
-  {
-    stage.addChild(line);
-  }
-  
-  initWithNorms()
-  {
-    stage.addChild(line);
-    stage.addChild(lNorm);
-    stage.addChild(rNorm);
+    _line.addChild(_shape);
   }
   
   drawWithNorms({colorMain: Color.Black, widthMain: 1,leftNormalColor: Color.Red, leftNormalWidth: 1, rightNormalColor: Color.Red, rightNormalWidth: 1})
   {
-    graphics
+    _shape.graphics
       ..beginPath()
       ..moveTo(a.x, a.y)
       ..lineTo(b.x, b.y)
       ..strokeColor(colorMain, widthMain)
       ..closePath();    
-    line.addChild(this);
+    _line.addChild(_shape);
     
     
-    graphics
+    _shape.graphics
       ..beginPath()
       ..moveTo(leftNormal.a.x, leftNormal.a.y)
       ..lineTo(leftNormal.b.x, leftNormal.b.y)
       ..strokeColor(leftNormalColor, leftNormalWidth)
       ..closePath();    
-    lNorm.addChild(this);
+    _lNorm.addChild(_shape);
     
     
-    graphics
+    _shape.graphics
       ..beginPath()
       ..moveTo(rightNormal.a.x, rightNormal.a.y)
       ..lineTo(rightNormal.b.x, rightNormal.b.y)
       ..strokeColor(rightNormalColor, rightNormalWidth)
       ..closePath();    
-    rNorm.addChild(this);
+    _rNorm.addChild(_shape);
     
   }
   
@@ -222,11 +219,35 @@ class Vector extends Shape implements Animatable
   
   bool advanceTime(num time)
   {
-    print("mymom");
-    graphics.clear();
+    _shape.graphics.clear();
     drawToPlayer(400, 400);
-    drawWithNorms();
+    draw();
     return true;
   }
   
+}
+
+class DrawVector extends Vector
+{
+  DrawVector():super(animateIt: false){}
+  
+  bool advanceTime(num time)
+  {
+    _shape.graphics.clear();
+    drawToPlayer(400, 400);
+    draw();
+    return true;  
+  }    
+}
+
+class DrawVectorWithNorms extends Vector
+{
+  //DrawVectorWithNorms():super(animateIt: false){}
+  bool advanceTime(num time)
+  {
+    _shape.graphics.clear();
+    drawToPlayer(400, 400);
+    drawWithNorms();
+    return true;  
+  }
 }

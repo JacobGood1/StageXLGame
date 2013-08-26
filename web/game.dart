@@ -18,6 +18,8 @@ ResourceManager resourceManager = new ResourceManager();
 html.Element canvas;
 GameSprite player;
 
+var lvl;
+
 GlassPlate gameSurface;
 
 num mouseX,
@@ -51,6 +53,7 @@ class Level1 extends GameWorld
         });
     canvas.onMouseDown.listen((me)
         {
+          print(numChildren);
           addChild(new Bomb());
         });
     addChild(gameSurface);
@@ -64,10 +67,9 @@ class Level1 extends GameWorld
           player = new Player(300,300); 
           
           addChild(player);
-          var kek = new Vector();
-          var poo = new Vector();
-          juggler.add(kek);
-          kek.initWithNorms();
+          new DrawVectorWithNorms();
+          new DrawVector();
+         
         });;
   }
 }
@@ -75,6 +77,6 @@ class Level1 extends GameWorld
 
 main()
 {
-  var lvl1 = new Level1();
-  stage.addChild(lvl1);  
+  lvl = new Level1();
+  stage.addChild(lvl);
 }

@@ -28,11 +28,18 @@ class Bomb extends GameSprite
   
   bool advanceTime(num time)
   {
-    
     x += _dx * speed;
     y += _dy * speed;
-    //rotation += 0.1;
-    
-    return true;
+    rotation += 0.1;
+    if(stageBounds)
+    {
+      terminate;
+      return false;
+    }
+    else
+    {
+      return true;  
+    }
+      
   }
 }

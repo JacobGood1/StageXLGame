@@ -14,7 +14,7 @@ abstract class GameSprite extends DisplayObjectContainer implements Animatable
   num get mouseDistanceX => mouseX - x;
   num get mouseDistanceY => mouseY - y;
   
-  stageBounds()
+  get stageBounds
   {
     var boundsHit = false;
     
@@ -38,9 +38,9 @@ abstract class GameSprite extends DisplayObjectContainer implements Animatable
     return boundsHit;
   }
   
-  terminate()
+  get terminate
   {
-    if(stage.contains(this)){stage.removeChild(this);};
+    lvl.removeChild(this);
   }
   
   Point get center => new Point(x + width / 2, y + height / 2); 
