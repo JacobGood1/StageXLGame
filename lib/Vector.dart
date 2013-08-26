@@ -219,9 +219,6 @@ class Vector implements Animatable
   
   bool advanceTime(num time)
   {
-    _shape.graphics.clear();
-    drawToPlayer(400, 400);
-    draw();
     return true;
   }
   
@@ -229,13 +226,13 @@ class Vector implements Animatable
 
 class DrawVector extends Vector
 {
-  DrawVector():super(animateIt: false){}
+  Vector v;
+  DrawVector(this.v){}//:super(animateIt: false){}
   
   bool advanceTime(num time)
   {
     _shape.graphics.clear();
-    drawToPlayer(400, 400);
-    draw();
+    v.draw();
     return true;  
   }    
 }

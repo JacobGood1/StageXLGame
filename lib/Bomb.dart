@@ -1,5 +1,4 @@
 part of main;
-
 class Bomb extends GameSprite
 {
   num speed = 5.0,
@@ -25,12 +24,17 @@ class Bomb extends GameSprite
     juggler.add(this);
     
   }
+  var rotation_speed = rand.nextInt(100) / 100;
+  get rotate
+  {
+    rotation += rotation_speed;
+  }
   
   bool advanceTime(num time)
   {
     x += _dx * speed;
     y += _dy * speed;
-    rotation += 0.1;
+    rotate;
     if(stageBounds)
     {
       terminate;

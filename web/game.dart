@@ -10,6 +10,7 @@ part '../lib/Bomb.dart';
 part '../lib/GameSprite.dart';
 part '../lib/Vector.dart';
 
+math.Random rand = new math.Random();
 
 Stage stage;
 RenderLoop renderLoop;
@@ -53,7 +54,7 @@ class Level1 extends GameWorld
         });
     canvas.onMouseDown.listen((me)
         {
-          print(numChildren);
+          //print(numChildren);
           addChild(new Bomb());
         });
     addChild(gameSurface);
@@ -67,8 +68,8 @@ class Level1 extends GameWorld
           player = new Player(300,300); 
           
           addChild(player);
-          new DrawVectorWithNorms();
-          new DrawVector();
+          var kek = new Vector(startX: 0, startY: 0, endX: 200, endY: 200);
+          new DrawVector(kek);
          
         });;
   }

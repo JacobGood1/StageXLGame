@@ -18,7 +18,7 @@ abstract class GameSprite extends DisplayObjectContainer implements Animatable
   {
     var boundsHit = false;
     
-    if(x < 0)
+    if(x - width / 2 < 0)
     {
       boundsHit = true;
     }
@@ -26,11 +26,11 @@ abstract class GameSprite extends DisplayObjectContainer implements Animatable
     {
       boundsHit = true;
     }
-    if(y < 0)
+    if(y - height / 2 < 0)
     {
       boundsHit = true;
     }
-    if(stage.stageHeight < y + height)
+    if(stage.stageHeight < y + height / 2)
     {
       boundsHit = true;
     }
