@@ -5,9 +5,7 @@ import 'package:stagexl/stagexl.dart';
 import 'dart:html' as html;
 import 'dart:math' as math;
 
-part '../lib/Player.dart';
-part '../lib/Bomb.dart';
-part '../lib/enemies.dart';
+part '../lib/entities.dart';
 part '../lib/GameSprite.dart';
 part '../lib/Vector.dart';
 
