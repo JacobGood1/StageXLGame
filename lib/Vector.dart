@@ -1,5 +1,4 @@
 part of main;
-
 Sprite _line  = new Sprite(),
        _lNorm = new Sprite(),
        _rNorm = new Sprite();

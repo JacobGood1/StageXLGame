@@ -1,7 +1,7 @@
 part of main;
 class Bomb extends GameSprite
 {
-  num speed = 5.0,
+  num speed = 200.0,
         _vx,
         _vy,
         _dx,
@@ -32,16 +32,21 @@ class Bomb extends GameSprite
   
   bool advanceTime(num time)
   {
-    x += _dx * speed;
-    y += _dy * speed;
-    rotate;
+   
+    //rotate;
     if(stageBounds)
     {
-      terminate;
+      //terminate;
+      return false;
+    }
+    else if(isHit([gameSprites[1]]))
+    {
       return false;
     }
     else
     {
+      x += _dx * speed * time;
+      y += _dy * speed * time;
       return true;  
     }
       
