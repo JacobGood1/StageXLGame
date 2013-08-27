@@ -1,6 +1,5 @@
-name: GAME
+name: SomeGame
 description: A sample web application
 dependencies:
   browser: any
   stagexl: any
-  web_ui: any

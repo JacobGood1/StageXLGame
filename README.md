@@ -1,4 +1,0 @@
-StageXLGame
-===========
-
-Forray into StageXL
