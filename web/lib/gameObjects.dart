@@ -17,6 +17,7 @@ class Bomb extends GameSprite
   
   void personalUpdate()
   {
+    print(gameSprites.length);
     vx = xMovement;
     vy = yMovement;
   }
