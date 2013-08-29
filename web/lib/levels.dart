@@ -1,18 +1,56 @@
 part of main;
 
+partitionCollisions(List<GameSprite> sprites)
+{
+  Map checkThese = new Map();
+  int history = 0;
+  
+  for(var i = 0; i < gameSprites.length; i++)
+  {
+    GameSprite sprite = gameSprites[i];
+    checkThese[i] = [sprite];
+    
+    history += 1;
+    for(var j = history; j < gameSprites.length; j++)
+    {
+      var otherSprite = gameSprites[j];
+      if(sprite.collide(otherSprite))
+      {
+        checkThese[i].add(otherSprite);
+      }
+    }
+    if(checkThese[i].length == 1)
+    {
+      checkThese.remove(i);
+    }
+  }
+  //print(checkThese);
+}
+
 class GameLoop extends Animatable
 {
+
+  QuadTree quad = new QuadTree(0, new Rectangle(0,0, 800, 600));
+  
   advanceTime(num time)
   {
-    gameSprites.forEach((GameSprite sprite)
+    quad.clear();
+    gameSprites.forEach((sprite) => quad.insert(sprite));
+    var possibleCollisions = [];
+    gameSprites.forEach((sprite)
         {
+          possibleCollisions.clear();
+          quad.retrieve(possibleCollisions, sprite);
+          
           sprite
             ..update()
-            ..collision()
+            ..collision(possibleCollisions)
             ..stageBounds()
             ..x = sprite.xPos
             ..y = sprite.yPos;
+          
         });
+   
   }
 }
 

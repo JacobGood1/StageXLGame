@@ -7,6 +7,8 @@ part of main;
 
 abstract class GameSprite extends Sprite
 {
+  List<GameSprite> collideObjects = [];
+  bool correction = false;
   double SPEED = 0.0,
          TERMINAL_VELOCITY = 0.0,
          TERMINAL_FRICTION = 0.0,
@@ -43,7 +45,11 @@ abstract class GameSprite extends Sprite
   }
   
   void personalUpdate();
-  void collision();
+  void personalCollision(GameSprite sprite);
+  void collision(List<GameSprite> possibleCollisions)
+  {
+    possibleCollisions.forEach((GameSprite sprite) => personalCollision(sprite));
+  }
   void terminate();
   
   void update()
@@ -128,13 +134,13 @@ abstract class GameSprite extends Sprite
           if(dy > 0 )
           {
             collisionSide = "top";
-            yPos +=  overLapY;
+            if(correction){yPos += overLapY;};
             return true;
           }
           else
           {
             collisionSide = "bottom";
-            yPos -= overLapY;
+            if(correction){yPos -= overLapY;};
             return true;
           }     
         }
@@ -143,13 +149,13 @@ abstract class GameSprite extends Sprite
           if(dx > 0 )
           {
             collisionSide = "left";
-            xPos += overLapX;
+            if(correction){xPos += overLapX;};
             return true;
           }
           else
           {
             collisionSide = "right";
-            xPos -= overLapX;
+            if(correction){xPos -= overLapX;};
             return true;
           }
         }
@@ -216,7 +222,7 @@ class Player extends GameSprite
         });
     
   }
-  void collision()
+  void personalCollision(GameSprite sprite)
   {
     
   }
@@ -227,13 +233,17 @@ class Minotaur extends GameSprite
 {
   Minotaur():super('minotaur')
   {
+    ID = 'minotaur';
     setX = 200.0;
     setY = 200.0;
     scaleX = 1/5;
     scaleY = 1/5;
   }
   void personalUpdate(){}
-  void collision(){}
+  void personalCollision(GameSprite sprite)
+  {
+    
+  }
   void terminate(){}  
 }
 

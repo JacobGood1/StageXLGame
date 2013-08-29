@@ -7,6 +7,9 @@ class Bomb extends GameSprite
       yMovement;
   Bomb():super('bomb')
   {
+    collideObjects = ['minotaur'];
+    correction = true;
+    
     setX = player.xPos;
     setY = player.yPos;
     
@@ -17,19 +20,16 @@ class Bomb extends GameSprite
   
   void personalUpdate()
   {
-    print(gameSprites.length);
     vx = xMovement;
     vy = yMovement;
   }
-  void collision()
+  void personalCollision(GameSprite sprite)
   {
-    gameSprites.forEach((sprite)
-        {
-          if(this != sprite && sprite.ID != "player")
-          {
-            collide(sprite);
-          }
-        });
+    if(this != sprite && sprite.ID != "player")
+    {
+      collide(sprite);
+    }
   }
+  
   void terminate(){} 
 }

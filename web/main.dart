@@ -8,6 +8,7 @@ import 'dart:math' as math;
 part 'lib/entities.dart';
 part 'lib/levels.dart';
 part 'lib/gameObjects.dart';
+part 'lib/dataStructures.dart';
 
 math.Random rand = new math.Random();
 
